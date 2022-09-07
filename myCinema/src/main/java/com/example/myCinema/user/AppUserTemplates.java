@@ -115,7 +115,7 @@ public class AppUserTemplates {
             return exceptionService.passExceptionToThymeleaf(e, model);
         }
 
-        return "/login";
+        return "login";
     }
 
 
