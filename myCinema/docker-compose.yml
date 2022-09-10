@@ -2,10 +2,11 @@ version: "3.9"
 
 services:
   spring-api:
+    build: https://raw.githubusercontent.com/flobbe9/FlorinSchikarski/main/myCinema/Dockerfile
     image: mycinema:1
     container_name: mycinema-api
     ports:
-      - "4001:4001"
+      - "4001"
     depends_on:
       - postgres
     environment:
@@ -15,10 +16,10 @@ services:
       - SPRING_JPA_HIBERNATE_DDL_AUTO=create-drop
 
   postgres:
-    image: 'postgres:latest'
+    image: postgres:latest
     container_name: mycinema-postgres
     ports:
-      - "5432:5432"
+      - "5432"
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=password
