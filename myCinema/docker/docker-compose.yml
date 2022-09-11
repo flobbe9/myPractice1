@@ -2,6 +2,7 @@ version: "3.9"
 
 services:
   spring-api:
+    build: ./
     image: mycinema:latest
     container_name: mycinema-api
     ports:
