@@ -23,7 +23,10 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
         http
             .csrf().disable()
             .authorizeRequests()
-            .antMatchers("/**").permitAll()
+            .antMatchers("/test/**", "/admin/**", "/appUser/**").permitAll() // for testing
+            .antMatchers("/", "/index", "/start", "/appUser/register").permitAll()
+            // .antMatchers("/admin/**").hasRole("ADMIN")
+            // .antMatchers("/appUser/**", "/movie/**", "/theatre/**").hasAnyRole("USER", "ADMIN")
             .anyRequest()
             .authenticated()
             .and()
@@ -31,7 +34,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .accessDeniedPage("/exception/errorPage")
             .and()
             .formLogin()
-                .defaultSuccessUrl("/start", true)
+                .defaultSuccessUrl("/start")
             .and()
             .logout()
                 .clearAuthentication(true)

@@ -1,8 +1,9 @@
 package com.example.myCinema.mail;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.stream.Collectors;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -44,7 +45,7 @@ public class MailService {
             // setting subject
             mimeMessageHelper.setSubject("myCinema | Confirm your account.");
             // setting mail adress from sender
-            mimeMessageHelper.setFrom("example@domain.com");
+            mimeMessageHelper.setFrom("myCinema@gmail.com");
             // setting actual content
             mimeMessageHelper.setText(email, true);
 
@@ -55,23 +56,25 @@ public class MailService {
             throw new IllegalStateException(e.getMessage());
         }
     }
-
-
+ 
+    
     /**
      * Reads email text form html file. Adds username and confirmation token.
      * 
      * @param emailPath from which the html file comes from.
      * @param name of appUser.
      * @param token confirmation token of appUser to confirm.
+     * @throws IOException
      */
-    public String createConfirmTokenEmail(Path emailPath, String name, String token) {
+    public String createConfirmationEmail(String path, String name, String token) {
+        // streaming html file 
+        InputStream is = getClass().getResourceAsStream(path);
+        InputStreamReader isr = new InputStreamReader(is);
+        BufferedReader br = new BufferedReader(isr);
 
-        try {
-            // reading mail content from html file from emailPath
-            return Files.readString(emailPath).formatted(name, token);
-            
-        } catch (IOException e) {
-            throw new IllegalStateException(e.getMessage());
-        }
+        // reading stream 
+        String email = br.lines().collect(Collectors.joining());
+
+        return email.formatted(name, token);
     }
 }
