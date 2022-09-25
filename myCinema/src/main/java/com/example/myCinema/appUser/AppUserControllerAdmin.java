@@ -5,7 +5,6 @@ import java.util.Set;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,12 +20,9 @@ import lombok.AllArgsConstructor;
 /**
  * Controller for admins. Contains endpoints to alter appUsers, delete or add one. Methods work with thymeleaf templates.
  * Can only be accessed by user with role 'ADMIN'. 
- * 
- * <p>{@code @CrossOrigin} allows the mail server to access this controller.
  */
 @Controller
 @RequestMapping("/admin/appUser")
-@CrossOrigin
 @AllArgsConstructor
 public class AppUserControllerAdmin {
     
@@ -87,13 +83,6 @@ public class AppUserControllerAdmin {
 // confirm token
 
 
-    @GetMapping("/getConfirmationEmail")
-    public String getConfirmationEmail() {
-
-        return "admin/appUser/confirmationEmail";
-    }
-
-
     /**
      * Directs user to login page if successful or to errorPage if not. Confirms token that is 
      * passed through pathvariable and enables appUser.
@@ -102,7 +91,7 @@ public class AppUserControllerAdmin {
      * @param model for passing objects to thymeleaf.
      * @return String with html template.
      */
-    @GetMapping("/confirmToken/{token}") 
+    @GetMapping("/confirmToken/{token}")
     public String confirmToken(@PathVariable("token") String token, Model model) {
 
         try {

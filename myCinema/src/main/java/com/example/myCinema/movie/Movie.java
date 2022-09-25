@@ -13,9 +13,10 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.example.myCinema.ticket.Discount;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -34,8 +35,9 @@ import lombok.Setter;
 public class Movie {
     
     @Id
-    @GeneratedValue(generator = "_movie_id_sequence", strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "_movie_id_sequence", allocationSize = 1) 
+    // @GeneratedValue(generator = "_movie_id_sequence", strategy = GenerationType.SEQUENCE)
+    // @SequenceGenerator(name = "_movie_id_sequence", allocationSize = 1) 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Exclude
     private Long id;
 
@@ -61,9 +63,11 @@ public class Movie {
     @Column(nullable = false)
     private FSK fsk;
 
+    @ElementCollection(fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private MovieVersion version;
+    @Column(name = "version")
+    @EqualsAndHashCode.Exclude
+    private Set<MovieVersion> versions;
 
     /** Represents a basic price which is adjusted in certain cases. */
     @Column(nullable = false)
@@ -72,14 +76,14 @@ public class Movie {
     @Column(nullable = false) 
     private String director;
 
-    @ElementCollection(fetch = FetchType.LAZY)
-    @Column(name = "castMember")
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Column(name = "cast_member")
     @EqualsAndHashCode.Exclude
     private List<String> cast;
 
-    @ElementCollection(fetch = FetchType.LAZY)
+    @ElementCollection(fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
-    @Column(name = "genres")
+    @Column(name = "genre")
     @EqualsAndHashCode.Exclude
     private Set<Genre> genres; 
 
@@ -94,7 +98,7 @@ public class Movie {
                  LocalDate localFinishingDate,
                  String synopsis, 
                  FSK fsk,
-                 MovieVersion version, 
+                 Set<MovieVersion> versions, 
                  Double price, 
                  String director,
                  List<String> cast,
@@ -107,7 +111,7 @@ public class Movie {
         this.localFinishingDate = localFinishingDate;
         this.synopsis = synopsis;
         this.fsk = fsk;
-        this.version = version;
+        this.versions = versions;
         this.price = price;
         this.director = director;
         this.cast = cast;
@@ -119,7 +123,7 @@ public class Movie {
     @Override
     public String toString() {
 
-        return this.title + " " + this.version.toString();
+        return this.title;
     }
 }
 
@@ -134,7 +138,12 @@ class MovieWrapper {
     
     private FSK[] fsk = FSK.values();
 
-    private MovieVersion[] version = MovieVersion.values();
+    private MovieVersion[] versions = MovieVersion.values();
+
+    private Discount[] discounts = Discount.values();
+
+    /** A true value stands for the toggled version at the same index in the versions array. */
+    private boolean[] toggledVersions = new boolean[versions.length];
 
     private Genre[] genres = Genre.values();
 
@@ -142,4 +151,6 @@ class MovieWrapper {
     private boolean[] toggledGenres = new boolean[genres.length];
 
     private String[] movieCast = new String[3];
+
+    private List<Movie> movies;
 }
