@@ -1,15 +1,30 @@
 # myCinema
-Spring-boot project with a made up "cinema" website which currently has only a few endpoints to add and change some entities.
+Spring-boot project with a made up cinema website that contains a few movies and (theoretically) offers tickets. 
 
-A few endpoints to try:
-# appUser
-https://localhost:4001/admin/appUser/addNew 
+Uses postgreSQL for the db.
 
-https://localhost:4001/admin/appUser/delete
+## Run myCinema in docker
+To start the api, just get the /docker folder, it contains a .jar file with the spring-boot project. 
 
-# movie
-https://localhost:4001/admin/movie/addNew
+Once you bashed into the /docker folder, use ```docker-compose up``` and docker-compose will do the rest. 
 
-https://localhost:4001/admin/movie/update
+### Login
+There are 2 users pre registered for login:
 
-Dockerfile is not configured yet so right now this only works locally.
+Role **USER**:
+
+    username: schikarski98@gmail.com 
+
+    password: user
+
+
+Role **ADMIN**:
+
+    username: florin.schikarski@gmail.com 
+
+    password: admin
+
+### A few endpoints to try:
+Start page: https://localhost:4001
+
+Get all movies: https://localhost:4001/movie/getAll
