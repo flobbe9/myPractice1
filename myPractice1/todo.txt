@@ -1,0 +1,3 @@
+-add Prof., Hiwi etc. and use Employee interface
+
+-resttemplate requests??

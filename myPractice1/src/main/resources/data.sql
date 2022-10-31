@@ -1,0 +1,2 @@
+INSERT INTO professor (id, birthday, first_name, is_account_non_expired, is_account_non_locked, is_credentials_non_expired, is_enabled, last_name, password, role, user_name, salary) 
+               VALUES (1, DATE('2001-02-12'), 'Florin', true, true, true, true, 'Schikarski', '$2a$31$17b3C.a25sV6TmiAnkZwUuW8I1kUlehrKjfnBNtS9jqetJbXYTdAm', 'ADMIN',  'florin.schikarski@gmail.com', 520);
