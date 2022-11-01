@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.Getter;
 import lombok.Setter;
- 
+
 
 @RestController
 @RequestMapping("/test/appUser/professor")
