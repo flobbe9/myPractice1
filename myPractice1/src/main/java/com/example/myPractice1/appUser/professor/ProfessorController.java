@@ -30,7 +30,7 @@ import lombok.Setter;
 @RestController
 @RequestMapping("/test/appUser/professor")
 // @EnableBatchProcessing
-@Getter
+@Getter 
 @Setter
 public class ProfessorController {
 
