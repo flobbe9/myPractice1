@@ -15,7 +15,7 @@ public class ProfessorTest {
     private ProfessorService professorService;
     
 
-    @Test
+    // @Test
     void testTest() {
         assertEquals("noooice", professorService.test2());
     }

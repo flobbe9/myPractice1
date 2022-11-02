@@ -24,7 +24,7 @@ class MyPractice1ApplicationTests {
 	private ProfessorService professorService;
 
 
-	@Test
+	// @Test
 	void contextLoads() throws Exception {
 		mockMvc.perform(get("/test/appUser/professor/getByUserName?userName=florin.schikarski@gmail.com"))
 			   .andDo(print())
@@ -32,7 +32,7 @@ class MyPractice1ApplicationTests {
 	}
 
 
-	@Test
+	// @Test
 	void testService() throws Exception {
 		Professor professor = (Professor) professorService.loadUserByUsername("florin.schikarski@gmail.com");
 		int salary = 520;
