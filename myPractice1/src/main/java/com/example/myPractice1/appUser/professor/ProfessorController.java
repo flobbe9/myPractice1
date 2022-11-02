@@ -32,7 +32,7 @@ import lombok.Setter;
 // @EnableBatchProcessing
 @Getter 
 @Setter
-public class ProfessorController {
+public class ProfessorController { 
 
     @Autowired
     private ProfessorService professorService;
