@@ -14,5 +14,4 @@ public class MyPractice1Application {
 	public static void main(String[] args) throws IOException {
 		SpringApplication.run(MyPractice1Application.class, args);
 	}
-
 }
